@@ -63,56 +63,43 @@ char	**ft_split(char const *s, char c)
 	return (strr);
 }
 
-int	ft_atoi(const char *str)
+unsigned long long chk_len(unsigned long long num)
 {
-	unsigned long long	res;
-	int					sign;
+	 unsigned long long i;
 
-	sign = 1;
-	res = 0;
-	while (*str == 32 || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		res = res * 10 + *str - '0';
-		str++;
-	}
-	if (res > 2147483647 && sign == 1)
-		write(2, "Error\n", 6);
-	else if (res > 2147483648 && sign == -1)
-		write(2, "Error\n", 6);
-	else if (*str)
-		write(2, "Error\n", 6);
-	return (res * sign);
+	 i = 0;
+	 while (num)
+	 {
+		num /= 10;
+		i++;
+	 }
+	 return (i);
 }
 
-int	ft_not_atoi(char *str)
+int	giga_chad_atoi(char *str, t_ps *ps)
 {
 		unsigned long long	r;
 		unsigned long long	i;
 		int					s;
-
+		
 		s = 1;
 		i = 0;
 		r = 0;
+		ps->bad_no = 1;
 		while (*str == 32 || (*str >= 9 && *str <= 13))
-				str++;
+			str++;
 		if (str[i] == '-' || str[i] == '+')
-				if (str[i] == '-')
-						s *= -1;
-		while (str[++i] >= '0' && str[i] <= '9')
-				r = r * 10 + str[i] - '0';
-		if ((r > 2147483647 && s == 1) ||(r > 2147483648 && s == -1) || str[i])
-				return (1);
-		//if (
-		return (0);
+			if (str[i++] == '-')
+				s *= -1;
+		while (str[i] >= '0' && str[i] <= '9')
+			r = r * 10 + str[i++] - '0';
+		if ((r > 2147483647 && s == 1) ||(r > 2147483648 && s == -1) || str[i]
+			|| chk_len(r) != i)
+			return (1);
+		ps->bad_no = 0;
+		return (r * s);
 }
+
 void	*ft_calloc(size_t count, size_t size)
 {
 	size_t	i;

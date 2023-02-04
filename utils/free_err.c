@@ -37,14 +37,15 @@ void	chkr_dup(int *i, t_ps *ps)
 
 void	freep(t_ps *ps, char *err)
 {
-	free (ps->ints);
+	if (ps->ints)
+		free (ps->ints);
 	if (ps->stb)
 		free (ps->stb);
 	if (ps->sta)
 		free (ps->sta);
 	if (err)
 	{
-		write(1, err, ft_strlen(err));
+		write(2, err, ft_strlen(err));
 		exit(1);
 	}
 }

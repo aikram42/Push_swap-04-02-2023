@@ -26,7 +26,7 @@ void	push_swap(t_ps *ps, int l)
 		big_boi(ps, l);
 }
 
-int	*ac2(char **av, char **s, int *ints)
+void	av_absorber(char **av, char **s, t_ps *ps)
 {
 	int		i[4];
 
@@ -39,23 +39,22 @@ int	*ac2(char **av, char **s, int *ints)
 		s = ft_split(av[i[3]], ' ');
 		while (s[++i[2]])
 		{
-			ints[++i[1]] = ft_atoi(s[i[2]]);
-			if (ft_not_atoi(s[i[2]]))
+			ps->ints[++i[1]] = giga_chad_atoi(s[i[2]], ps);
+			if (ps->bad_no)
 			{
 				while (s[i[2]])
 					free(s[i[2]++]);
 				free(s);
-				free(ints);
-				return (0);
+				freep(ps, ERR_ARG);
 			}
 			free(s[i[2]]);
 		}
 		free(s);
 	}
-	return (ints);
+	return ;
 }
 
-int	amt(char **av)
+int	arr_len(char **av)
 {
 	int	i;
 	int	l;
@@ -78,10 +77,21 @@ int	amt(char **av)
 	return (j);
 }
 
-// void	chk_solved(int *num, int l)
-// {
-// 	if (num )
-// }
+void	chk_sol(t_ps *ps, int l)
+{
+	int	i;
+
+	i = -1;
+	while (++i < l - 1)
+	{
+		if (ps->ints[i] >= ps->ints[i + 1])
+			return ;
+	}
+	write(1, BRUH, 29);
+	free(ps->ints);
+	exit(0);
+	
+}
 
 int	main(int ac, char **av)
 {
@@ -91,20 +101,22 @@ int	main(int ac, char **av)
 
 	if (ac > 2)
 	{
+		
 		i[1] = -1;
-		i[0] = amt(av);
+		i[0] = arr_len(av);
 		ps.stb = NULL;
 		ps.sta = NULL;
 		str = NULL;
 		ps.ints = malloc(sizeof(int) * i[0]);
 		if (!ps.ints)
 			return (1);
-		ps.ints = ac2(av, str, ps.ints);
+		av_absorber(av, str, &ps);
 		chkr_dup(i, &ps);
+		chk_sol(&ps, i[0]);
 		push_swap(&ps, i[0]);
 		freep(&ps, NULL);
 		return (0);
 	}
-	write (2, "Error: Invalid arguments\n", 25);
+	write (2, INV_ARG, 25);
 	return (1);
 }

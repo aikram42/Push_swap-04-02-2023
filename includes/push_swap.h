@@ -17,7 +17,11 @@
 # include <stdlib.h>
 
 # define ERR_DUP "Error: duplicates not allowed\n"
+# define ERR_ARG "Error: BAD ARGUMENT!\n"
+# define INV_ARG "Error: Invalid arguments\n"
 # define ERR_SZE "Error: number must be of integer type\n"
+
+# define BRUH "what u tryna sort!, ur life?\n"
 
 typedef struct t_ps
 {
@@ -29,6 +33,7 @@ typedef struct t_ps
 	int	mdp;
 	int	pdp;
 
+	int	bad_no;
 	int	l;
 
 	int	prh;
@@ -45,11 +50,9 @@ typedef struct t_ps
 void	push_swap(t_ps *ps, int l);
 
 /* Utils */
-int		ft_not_atoi(char *str);
-int		ft_atoi(const char *str);
-void	*ft_calloc(size_t count, size_t size);
 char	**ft_split(char const *s, char c);
-
+int		giga_chad_atoi(char *str, t_ps *ps);
+void	*ft_calloc(size_t count, size_t size);
 void	chkr_dup(int *i, t_ps *ps);
 void	freep(t_ps *ps, char *err);
 
@@ -68,9 +71,9 @@ void	three(int *a, int l, int i);
 void	four(int *a, int l, int i);
 void	five(int *a, int l, int i);
 
-void	sortz(t_ps *ps, int l);
-void	sort_sta(t_ps *ps, int *i);
 void	clr_stb(t_ps *ps);
+void	sort_sta(t_ps *ps, int *i);
+void	sortz(t_ps *ps, int l);
 
 void	big_boi(t_ps *ps, int l);
 
